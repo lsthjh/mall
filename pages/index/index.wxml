@@ -1,0 +1,51 @@
+<!--index.wxml-->
+<view class="index-container">
+  <!--搜索框-->
+  <SearchInput></SearchInput>
+  <!--轮播图-->
+  <view class="index-swiper">
+    <swiper autoplay circular indicator-dots indicator-color="#fff" indicator-active-color="#666">
+      <block wx:for="{{swiperList}}" wx:key="*this">
+        <swiper-item class="" item-id="">
+          <navigator url="{{item.navigator_url}}" hover-class="navigator-hover">
+            <image class="" src="{{item.picUrl}}" mode="widthFit" lazy-load="false" binderror="" bindload="" />
+          </navigator>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!--导航-->
+  <view class="index-cate">
+    <swiper indicator-dots>
+      <block wx:for="{{cateList}}" wx:for-item="items" wx:key="*this">
+        <swiper-item class="" item-id="">
+          <block wx:for="{{items}}" wx:for-item="item" wx:key="id">
+            <navigator url="/pages/category/index" open-type="switchTab">
+              <image class="" mode="widthFix" src="{{item.icon}}" lazy-load="true" />
+              <text class="">{{item.name}}</text>
+            </navigator>
+          </block>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!--楼层数据-->
+  <!-- 商品信息 -->
+  <view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>
+  </view>
+  <view class="goods-container">
+    <navigator class="goods-box" wx:for="{{goodsList}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}" url="/pages/goods_detail/index?id={{item.id}}">
+      <view class="img-box">
+        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">{{item.name}}</view>
+      <view style='display:flex;'>
+        <view class="goods-price">¥ {{item.minPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>
+          ¥ {{item.originalPrice}}
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
